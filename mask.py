@@ -72,13 +72,14 @@ def visualize_attentions(tokens, attentions):
     include both the layer number (starting count from 1) and head number
     (starting count from 1).
     """
-    # TODO: Update this function to produce diagrams for all layers and heads.
-    generate_diagram(
-        1,
-        1,
-        tokens,
-        attentions[0][0][0]
-    )
+    for layer_index, layer in enumerate(attentions): # loop through 12 layers
+        for head_index, head in enumerate(layer[0]): # loop through 12 heads in each layer
+            generate_diagram(
+                layer_index + 1,
+                head_index + 1,
+                tokens,
+                head.numpy() # convert Tensor to NumPy array
+            )
 
 
 def generate_diagram(layer_number, head_number, tokens, attention_weights):
